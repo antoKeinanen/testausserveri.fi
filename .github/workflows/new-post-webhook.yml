@@ -1,0 +1,50 @@
+name: New Post Webhook
+
+on:
+  push:
+    branches:
+      - "coal"
+    paths:
+      - "posts/**/post.mdx"
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/coal'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2 
+
+      - name: Find New post.mdx Files
+        id: check_new_files
+        run: |
+          NEW_POST=$(git diff --name-only --diff-filter=A HEAD^ HEAD | grep -o 'posts/[^/]*/post\.mdx' | sed 's|posts/\(.*\)/post\.mdx|\1|' | tail -n 1)
+          if [ -n "$NEW_POST" ]; then
+            echo "NEW_POST=$NEW_POST" >> $GITHUB_ENV
+            echo "new post: $NEW_POST"
+          else
+            echo "no new posts"
+          fi
+
+      - name: Set up Node.js
+        if: env.NEW_POST != ''
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+        
+      - name: Install Dependencies
+        if: env.NEW_POST != ''
+        run: npm install
+        
+      - name: Wait 5 minutes
+        if: env.NEW_POST != ''
+        run: sleep 300
+                
+      - name: Send Webhook Notification
+        if: env.NEW_POST != ''
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"https://testausserveri.fi/syslog/${NEW_POST}\"}" $DISCORD_WEBHOOK_URL

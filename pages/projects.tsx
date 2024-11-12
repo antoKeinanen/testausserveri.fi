@@ -20,16 +20,18 @@ export default function Projects({ projectsData: projects, isMobile, copyrightYe
         <title>Projektit | Testausserveri</title>
         <meta name="description" content="Testausserveri on kaikille avoin yhteisö koodaamisesta, eettisestä hakkeroinnista ja yleisesti teknologiasta innostuneille nuorille." />
       </Head>
-      <Content>
-        {!isMobile ? <Projects3D /> :
-          <div style={{ marginBottom: "2rem" }}>
-            <Image
-              src={Projects3DMobile}
-              layout="responsive"
-              alt="Kuva, jossa näkyy 3D-mallit pöydästä, USB-tikusta, herätyskellosta, tietokoneesta sekä polkupyörästä jonka kyljessä on QR-koodi"
-            />
-          </div>
-        }
+      <div style={{marginBottom: "-25px"}}>
+          {!isMobile ? <Projects3D /> :
+            <div style={{ marginBottom: "4rem" }}>
+              <Image
+                src={Projects3DMobile}
+                layout="responsive"
+                alt="Kuva, jossa näkyy 3D-mallit pöydästä, USB-tikusta, herätyskellosta, tietokoneesta sekä polkupyörästä jonka kyljessä on QR-koodi"
+              />
+            </div>
+          }
+      </div>
+      <Content noMargin>
         <InfoBox>
           <span>Tämä projektilistaus on vielä keskeneräinen.</span>
           <span>
@@ -40,7 +42,7 @@ export default function Projects({ projectsData: projects, isMobile, copyrightYe
           <ProjectRow key={project._id} project={project} />
         ))}
       </Content>
-      <Footer copyrightYear={copyrightYear} />
+      <Footer />
     </div>
   )
 }
@@ -52,7 +54,7 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async ({ req, res }) => {
   const data = await api.projects.all()
   const UA = req.headers['user-agent'];
-  const isMobile = Boolean(UA.match(
+  const isMobile = Boolean(UA?.match(
     /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
   ))
 

@@ -6,7 +6,7 @@ import { Footer } from '../../components/Footer/Footer'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import TestaushostBannerImg from '../../assets/testaushost-banner.png'
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs'
-import { Section } from '../privacy';
+import { Section } from '../privacy/members';
 import { IoIosCall, IoIosMail, IoLogoGithub } from 'react-icons/io'
 
 export default function HostTerms({ copyrightYear }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -30,7 +30,7 @@ export default function HostTerms({ copyrightYear }: InferGetServerSidePropsType
         <H1>Testaushost käyttöehtosopimus</H1>
         <Section>
             <h2>1. Johdanto</h2>
-            <p>Tämän sopimuksen osapuolina ovat Testausserveri ry sekä Testaushost-palveluita (jäljempänä ”Palvelu”) käyttävä yksityishenkilö (jäljempänä ”Käyttäjä”). Palveluilla tarkoitetaan Testausserveri ry:n ja Osphostin yhdessä (jäljempänä ”Palveluntarjoaja”) Käyttäjälle tarjoamia maksuttomia webhosting-, shell-, DNS-, sähköposti- tai muita internet-palveluita (jäljempänä ”Palvelinkapasiteetti”). </p>
+            <p>Tämän sopimuksen osapuolina ovat Testausserveri ry sekä Testaushost-palveluita (jäljempänä ”Palvelu”) käyttävä yksityishenkilö (jäljempänä ”Käyttäjä”). Palveluilla tarkoitetaan Testausserveri ry:n ja Osphost ry:n yhdessä (jäljempänä ”Palveluntarjoaja”) Käyttäjälle tarjoamia maksuttomia webhosting-, shell-, DNS-, sähköposti- tai muita internet-palveluita (jäljempänä ”Palvelinkapasiteetti”). </p>
             <p>Testausserveri ry tarjoaa Palveluita vain yhdistyksensä varsinaisille jäsenille.</p>
             <p>Käyttämällä Palveluita Käyttäjä sitoutuu noudattamaan näitä käyttöehtoja.</p>
         </Section>
@@ -72,7 +72,7 @@ export default function HostTerms({ copyrightYear }: InferGetServerSidePropsType
             <p>Tämän sopimuksen ehtoihin sovelletaan Suomen lakia. Tästä sopimuksesta johtuvat riidat pyritään ensisijaisesti ratkaisemaan osapuolten välisissä neuvotteluissa. Mikäli neuvotteluissa ei löydetä ratkaisua kolmenkymmenen (30) vuorokauden kuluessa osapuolten asiaa koskevasta kirjallisesta ilmoituksesta toiselle osapuolelle, ratkaistaan erimielisyys ensimmäisenä asteena Helsingin käräjäoikeudessa.</p>
         </Section>
       </Content>
-      <Footer copyrightYear={copyrightYear} />
+      <Footer />
     </div>
   )
 }
